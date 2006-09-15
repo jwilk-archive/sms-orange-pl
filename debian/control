@@ -4,9 +4,10 @@ Priority: optional
 Maintainer: Jakub Wilk <ubanus@users.sf.net>
 Build-Depends: debhelper (>= 5), perl
 Standards-Version: 3.7.2
+Bugs: mailto:ubanus@users.sf.net
 
 Package: sms-orange-pl
 Architecture: any
-Depends: ${perl:Depends}, ${misc:Depends}, libwww-perl, libhtml-parser-perl, libapache-configfile-perl, konwert
+Depends: ${perl:Depends}, ${misc:Depends}, libwww-perl, libhtml-parser-perl, libapache-configfile-perl, libtext-unidecode-perl
 Recommends: libterm-size-perl, libgraphics-magick-perl
 Description: Send SMs via sms.orange.pl gateway
