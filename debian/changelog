@@ -1,3 +1,9 @@
+sms-orange-pl (0.3) unstable; urgency=low
+
+  * Support for non-ASCII tokens.
+
+ -- Jakub Wilk <ubanus@users.sf.net>  Mon, 18 Sep 2006 13:08:42 +0200
+
 sms-orange-pl (0.2) unstable; urgency=low
 
   * Use Text::Unidecode instead of konwert.

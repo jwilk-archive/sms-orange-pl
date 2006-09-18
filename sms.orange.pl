@@ -1,5 +1,4 @@
 #!/usr/bin/perl
-
 use strict;
 use warnings;
 
@@ -7,7 +6,7 @@ use Getopt::Long qw(:config gnu_getopt no_ignore_case);
 use Pod::Usage qw(pod2usage);
 use File::Temp qw(tempfile);
 
-our $VERSION = '0.1';
+our $VERSION = '0.3';
 my $site = 'sms.orange.pl';
 my $software_name = 'sms.orange.pl';
 my $config_file = 'sms-orange-pl.conf';
@@ -201,7 +200,7 @@ sub token_read_image($)
   }
   $image->Crop(y => $y);
   $height -= $y;
-  for ($x = $width-1; $x >= 0; $x--)
+  for ($x = $width - 1; $x >= 0; $x--)
   {
     my $sum = 0;
     for ($y = 0; $y < $height; $y++)
@@ -246,6 +245,7 @@ sub token_read_image($)
       $_ >>= 5;
       push @_, $chars[$_];
     }
+    push @_, "\n";
   }
   return join '', @_;
 }
@@ -362,8 +362,8 @@ else
   require Text::Wrap;
   my $codeset = codeset();
   debug "Codeset: $codeset";
-  binmode STDERR, ":encoding($codeset)";
-  binmode STDOUT, ":encoding($codeset)";
+
+  binmode $_, ":encoding($codeset)" foreach ((*STDIN, *STDERR, *STDOUT));
  
   my ($recipient, $body) = @ARGV;
   $recipient = Encode::decode($codeset, $recipient);
@@ -371,6 +371,7 @@ else
   (my $number, $recipient) = resolve_person $recipient;
   debug "Recipient: $recipient";
   $body = transliterate($body);
+  $body = ' ' if $body eq '';
   $signature = transliterate(Encode::decode($codeset, $signature));
   debug "Message:\n" . Text::Wrap::wrap("  ", "  ", $body) . "\n\n" . Text::Wrap::wrap("  ", "  ", $signature) . "\n";
   my $body_len = length $body;
@@ -410,7 +411,7 @@ else
   $form->value('SENDER' => $signature);
   $form->value('RECIPIENT' => $number);
   $form->value('SHORT_MESSAGE' => $body);
-  $form->value('pass' => $token);
+  $form->value('pass' => Encode::encode('UTF-8', $token));
   $form->value('MESSAGE_PREV' => 0);
   $form->value('ILE_ZNAKOW' => 0);
   $form->value('ILE_SMSOW' => 1);
@@ -418,7 +419,7 @@ else
   my $click_res = $ua->simple_request($form->click());
   $click_res->is_success or http_error $form->action;
   $_ = $click_res->content;
-  /^Pewne/ and api_error 's2';
+  /^Pewne pola/ and api_error 's2';
   if (m{<title>Wyst\xc4\x85pi\xc5\x82 b\xc5\x82\xc4\x85d})
   {
     my $info = 'Error while sending the message';
