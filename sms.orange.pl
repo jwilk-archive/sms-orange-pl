@@ -6,7 +6,7 @@ use Getopt::Long qw(:config gnu_getopt no_ignore_case);
 use Pod::Usage qw(pod2usage);
 use File::Temp qw(tempfile);
 
-our $VERSION = '0.3';
+our $VERSION = '0.4';
 my $site = 'sms.orange.pl';
 my $software_name = 'sms.orange.pl';
 my $config_file = 'sms-orange-pl.conf';
@@ -182,9 +182,9 @@ sub token_read_image($)
     {
       $sum += token_get_pixel($image, $x, $y);
     }
-    $state++ if $state == 0 && $sum  > 20000;
-    $state++ if $state == 1 && $sum <= 20000;
-    last     if $state == 2 && $sum  > 20000;
+    last       if $state >= 9 && $sum  > 25000;
+    $state = 1 if $state  < 9 && $sum  > 20000;
+    $state++   if $state  > 0 && $sum <= 20000;
   }
   $height = $y;
   $image->Crop(height => $height);

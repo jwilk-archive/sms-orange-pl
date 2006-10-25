@@ -1,3 +1,9 @@
+sms-orange-pl (0.4) unstable; urgency=low
+
+  * Better token isolation. 
+
+ -- Jakub Wilk <ubanus@users.sf.net>  Wed, 25 Oct 2006 11:02:30 +0200
+
 sms-orange-pl (0.3) unstable; urgency=low
 
   * Support for non-ASCII tokens.
