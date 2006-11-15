@@ -7,7 +7,7 @@ Standards-Version: 3.7.2
 Bugs: mailto:ubanus@users.sf.net
 
 Package: sms-orange-pl
-Architecture: any
+Architecture: all
 Depends: kawute (>= 0.8.1)
 Recommends: libterm-size-perl, libgraphics-magick-perl
 Description: Send SMs via sms.orange.pl gateway
