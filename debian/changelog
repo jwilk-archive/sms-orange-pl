@@ -1,8 +1,15 @@
+sms-orange-pl (0.8.3) unstable; urgency=low
+
+  * Follow the web API changes. 
+
+ -- Jakub Wilk <ubanus@users.sf.net>  Thu, 23 Nov 2006 10:38:47 +0100
+
 sms-orange-pl (0.8.2) unstable; urgency=low
 
   * Architecture: any -> all.
 
  -- Jakub Wilk <ubanus@users.sf.net>  Wed, 15 Nov 2006 23:24:31 +0100
+
 
 sms-orange-pl (0.8.1) unstable; urgency=low
 

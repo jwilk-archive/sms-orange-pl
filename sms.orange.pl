@@ -7,7 +7,7 @@ package SmsOrangePl;
 
 use base qw(kawute);
 
-our $VERSION = '0.8.1';
+our $VERSION = '0.8.3';
 
 sub version($) { $SmsOrangePl::VERSION; }
 sub site($) { 'sms.orange.pl'; }
@@ -237,13 +237,9 @@ sub action_send($)
   my $ua = $this->lwp_init();
   my $uri;
   my $base_uri = "http://" . $this->site() . '/';
-  my $res_home = $ua->simple_request($this->lwp_get($base_uri));
+  my $res_home = $ua->request($this->lwp_get($base_uri));
   $res_home->is_success or $this->http_error($base_uri);
-  $res_home->content =~ /src="(Default[.]aspx[?]id=[0-9A-Za-z-]+)"/ or $this->api_error('s1');
-  my $uri_main = "$base_uri$1";
-  my $res_main = $ua->request($this->lwp_get($uri_main));
-  $res_main->is_success or $this->http_error($uri);
-  $res_main->content =~ /src="(rotate_token[.]aspx[?]token=[0-9A-Za-z-]+)"/;
+  $res_home->content =~ /src="(rotate_token[.]aspx[?]token=[0-9A-Za-z-]+)"/;
   my $uri_img = "$base_uri$1";
   my $res_img = $ua->simple_request($this->lwp_get($uri_img));
   $res_img->is_success or $this->http_error($uri_img);
@@ -263,7 +259,7 @@ sub action_send($)
   $this->debug_print("Token: <$token>");
 
   require HTML::Form;
-  my $form = HTML::Form->parse($res_main);
+  my $form = HTML::Form->parse($res_home);
   $form->value('SENDER' => $signature);
   $form->value('RECIPIENT' => $number);
   $form->value('SHORT_MESSAGE' => $body);
