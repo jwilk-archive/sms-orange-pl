@@ -7,7 +7,7 @@ package SmsOrangePl;
 
 use base qw(kawute);
 
-our $VERSION = '0.8.3';
+our $VERSION = '0.8.4';
 
 sub version($) { $SmsOrangePl::VERSION; }
 sub site($) { 'sms.orange.pl'; }
@@ -76,9 +76,9 @@ sub token_read_image($)
     {
       $sum += token_get_pixel($image, $x, $y);
     }
-    last       if $state >= 9 && $sum  > 25000;
-    $state = 1 if $state  < 9 && $sum  > 20000;
-    $state++   if $state  > 0 && $sum <= 20000;
+    last       if $state >= 9 && $sum  > 45000;
+    $state = 1 if $state  < 9 && $sum  > 30000;
+    $state++   if $state  > 0 && $sum <= 30000;
   }
   $height = $y;
   $image->Crop(height => $height);
@@ -90,7 +90,7 @@ sub token_read_image($)
     {
       $sum += token_get_pixel($image, $x, $y);
     }
-    last if $sum > 20000;
+    last if $sum > 30000;
   }
   $image->Crop(y => $y);
   $height -= $y;
@@ -101,7 +101,7 @@ sub token_read_image($)
     {
       $sum += token_get_pixel($image, $x, $y);
     }
-    last if $sum > 4000;
+    last if $sum > 5000;
   }
   $width = $x;
   $image->Crop(width => $width);
@@ -112,7 +112,7 @@ sub token_read_image($)
     {
       $sum += token_get_pixel($image, $x, $y);
     }
-    last if $sum > 2000;
+    last if $sum > 5000;
   }
   $image->Crop(x => $x);
   $image->Quantize(colorspace => 'grayscale');
@@ -239,7 +239,11 @@ sub action_send($)
   my $base_uri = "http://" . $this->site() . '/';
   my $res_home = $ua->request($this->lwp_get($base_uri));
   $res_home->is_success or $this->http_error($base_uri);
-  $res_home->content =~ /src="(rotate_token[.]aspx[?]token=[0-9A-Za-z-]+)"/;
+  $res_home->content =~ /src="(Default[.]aspx[?]id=[0-9A-Za-z-]+)"/ or $this->api_error('s1');
+  my $uri_main = "$base_uri$1";
+  my $res_main = $ua->request($this->lwp_get($uri_main));
+  $res_main->is_success or $this->http_error($uri);
+  $res_main->content =~ /src="(rotate_token[.]aspx[?]token=[0-9A-Za-z-]+)"/ or $this->api_error('t0');
   my $uri_img = "$base_uri$1";
   my $res_img = $ua->simple_request($this->lwp_get($uri_img));
   $res_img->is_success or $this->http_error($uri_img);
@@ -259,7 +263,7 @@ sub action_send($)
   $this->debug_print("Token: <$token>");
 
   require HTML::Form;
-  my $form = HTML::Form->parse($res_home);
+  my $form = HTML::Form->parse($res_main);
   $form->value('SENDER' => $signature);
   $form->value('RECIPIENT' => $number);
   $form->value('SHORT_MESSAGE' => $body);
