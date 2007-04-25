@@ -7,7 +7,7 @@ package SmsOrangePl;
 
 use base qw(kawute);
 
-our $VERSION = '0.8.4';
+our $VERSION = '0.8.5';
 
 sub version($) { $SmsOrangePl::VERSION; }
 sub site($) { 'sms.orange.pl'; }
