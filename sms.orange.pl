@@ -242,7 +242,7 @@ sub action_send($)
   $res_home->content =~ /src="(Default[.]aspx[?]id=[0-9A-Za-z-]+)"/ or $this->api_error('s1');
   my $uri_main = "$base_uri$1";
   my $res_main = $ua->request($this->lwp_get($uri_main));
-  $res_main->is_success or $this->http_error($uri);
+  $res_main->is_success or $this->http_error($uri_main);
   $res_main->content =~ /src="(rotate_token[.]aspx[?]token=[0-9A-Za-z-]+)"/ or $this->api_error('t0');
   my $uri_img = "$base_uri$1";
   my $res_img = $ua->simple_request($this->lwp_get($uri_img));
