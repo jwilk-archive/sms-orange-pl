@@ -117,6 +117,7 @@ sub token_read_image($)
   $image->Crop(x => $x);
   $image->Quantize(colorspace => 'grayscale');
   $image->Negate();
+  $image->MedianFilter(1);
   $image->Normalize();
   my ($twidth, $theight) = get_term_size();
   $image->Resize(geometry => "${twidth}x${theight}");
