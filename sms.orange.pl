@@ -240,7 +240,7 @@ sub action_send($)
   my $base_uri = "http://" . $this->site() . '/';
   my $res_home = $ua->request($this->lwp_get($base_uri));
   $res_home->is_success or $this->http_error($base_uri);
-  $res_home->content =~ /src="(Default[.]aspx[?]id=[0-9A-Za-z-]+)"/ or $this->api_error('s1');
+  $res_home->content =~ m{src="http://sms[.]orange[.]pl/(Default[.]aspx[?]id=[0-9A-Za-z-]+)"} or $this->api_error('s1');
   my $uri_main = "$base_uri$1";
   my $res_main = $ua->request($this->lwp_get($uri_main));
   $res_main->is_success or $this->http_error($uri_main);
