@@ -1,3 +1,9 @@
+sms-orange-pl (0.8.7) unstable; urgency=low
+
+  * Follow the API changes.
+
+ -- Jakub Wilk <ubanus@users.sf.net>  Mon, 05 Nov 2007 18:43:39 +0100
+
 sms-orange-pl (0.8.6) unstable; urgency=low
 
   * Add median filter to reduce noise.
