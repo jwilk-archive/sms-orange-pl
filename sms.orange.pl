@@ -18,6 +18,7 @@ sub lwp_init($)
 {
   my ($this) = @_;
   my $ua = kawute::lwp_init($this);
+  $ua->agent('Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.1.8) Gecko/20071004 Iceweasel/2.0.0.8');
   push @{$ua->requests_redirectable}, 'POST';
   return $ua;
 }
@@ -240,7 +241,7 @@ sub action_send($)
   my $base_uri = "http://" . $this->site() . '/';
   my $res_home = $ua->request($this->lwp_get($base_uri));
   $res_home->is_success or $this->http_error($base_uri);
-  $res_home->content =~ m{src="http://sms[.]orange[.]pl/(Default[.]aspx[?]id=[0-9A-Za-z-]+)"} or $this->api_error('s1');
+  $res_home->content =~ m{src="(?:http://sms[.]orange[.]pl/)?(Default[.]aspx[?]id=[0-9A-Za-z-]+)"} or $this->api_error('s1');
   my $uri_main = "$base_uri$1";
   my $res_main = $ua->request($this->lwp_get($uri_main));
   $res_main->is_success or $this->http_error($uri_main);
