@@ -1,3 +1,9 @@
+sms-orange-pl (0.8.8) unstable; urgency=low
+
+  * Follow the API changes. 
+
+ -- Jakub Wilk <ubanus@users.sf.net>  Thu, 15 Nov 2007 22:42:05 +0100
+
 sms-orange-pl (0.8.7) unstable; urgency=low
 
   * Follow the API changes.
