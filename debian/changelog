@@ -2,7 +2,7 @@ sms-orange-pl (0.8.9) unstable; urgency=low
 
   * Use Perl ≥ 5.10.
 
- -- Jakub Wilk <ubanus@users.sf.net>  Thu, 29 May 2008 13:47:13 +0200
+ -- Jakub Wilk <ubanus@users.sf.net>  Thu, 29 May 2008 14:02:16 +0200
 
 sms-orange-pl (0.8.8) unstable; urgency=low
 
