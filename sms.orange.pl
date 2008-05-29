@@ -7,7 +7,7 @@ package SmsOrangePl;
 
 use base qw(kawute);
 
-our $VERSION = '0.8.5';
+our $VERSION = '0.8.9';
 
 sub version($) { $SmsOrangePl::VERSION; }
 sub site($) { 'sms.orange.pl'; }
@@ -178,15 +178,12 @@ sub set_cc($$)
 sub main($)
 {
   my ($this) = @_;
-  use constant
-  {
-    ACTION_VOID => sub { $this->action_void(); },
-    ACTION_SEND => sub { $this->action_send(); },
-  };
-  my $action = ACTION_SEND;
+  my $action_void = sub { $this->action_void(); };
+  my $action_send = sub { $this->action_send(); };
+  my $action = $action_send;
   $this->get_options(
-    'send|s' =>      sub { $action = ACTION_SEND; },
-    'void' =>        sub { $action = ACTION_VOID; },
+    'send|s' =>      sub { $action = $action_send; },
+    'void' =>        sub { $action = $action_void; },
     'cc=s' =>        sub { shift; $this->set_cc(shift); },
     'signature=s' => \$signature,
   );
@@ -270,9 +267,6 @@ sub action_send($)
   $form->value('RECIPIENT' => $number);
   $form->value('SHORT_MESSAGE' => $body);
   $form->value('pass' => Encode::encode('UTF-8', $token));
-  $form->value('MESSAGE_PREV' => 0);
-  $form->value('ILE_ZNAKOW' => 0);
-  $form->value('ILE_SMSOW' => 1);
   $this->debug_print('Sending...');
   my $click_res = $ua->simple_request($form->click());
   $click_res->is_success or $this->http_error($form->action);
