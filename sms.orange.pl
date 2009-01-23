@@ -155,25 +155,6 @@ sub read_token()
 }
 
 my $signature = undef;
-my $cc_phone = undef;
-my $cc_email = undef;
-
-sub set_cc($$)
-{
-  (my $this, $_) = @_;
-  if (/^[!-z]+@[!-z]+$/)
-  {
-    $cc_email = $_;
-  }
-  elsif (/^(?:\+?48)?(\d{9})/)
-  {
-    $cc_phone = $1;
-  }
-  else
-  {
-    $this->quit('Invalid cc');
-  }
-}
 
 sub main($)
 {
@@ -184,7 +165,6 @@ sub main($)
   $this->get_options(
     'send|s' =>      sub { $action = $action_send; },
     'void' =>        sub { $action = $action_void; },
-    'cc=s' =>        sub { shift; $this->set_cc(shift); },
     'signature=s' => \$signature,
   );
   $this->go_home();
@@ -192,8 +172,6 @@ sub main($)
   (
     'signature' => sub
       { $signature = shift if not defined $signature; },
-    'cc' => sub 
-      { set_cc($this, shift); }
   );
   $this->reject_unpersons(0) if $this->force();
   unless (defined $signature)
@@ -202,8 +180,6 @@ sub main($)
     $signature = '';
   }
 
-  $this->debug_print("E-mail cc: $cc_email") if defined $cc_email;
-  $this->debug_print("SMS cc: $cc_phone") if defined $cc_phone;
   &{$action}();
 }
 
@@ -238,11 +214,7 @@ sub action_send($)
   my $base_uri = "http://" . $this->site() . '/';
   my $res_home = $ua->request($this->lwp_get($base_uri));
   $res_home->is_success or $this->http_error($base_uri);
-  $res_home->content =~ m{src="(?:http://sms[.]orange[.]pl/)?(Default[.]aspx[?]id=[0-9A-Za-z-]+)"} or $this->api_error('s1');
-  my $uri_main = "$base_uri$1";
-  my $res_main = $ua->request($this->lwp_get($uri_main));
-  $res_main->is_success or $this->http_error($uri_main);
-  $res_main->content =~ /src="(rotate_token[.]aspx[?]token=[0-9A-Za-z-]+)"/ or $this->api_error('t0');
+  $res_home->content =~ /src="(rotate_token[.]aspx[?]token=[0-9A-Za-z-]+)"/ or $this->api_error('t0');
   my $uri_img = "$base_uri$1";
   my $res_img = $ua->simple_request($this->lwp_get($uri_img));
   $res_img->is_success or $this->http_error($uri_img);
@@ -262,32 +234,27 @@ sub action_send($)
   $this->debug_print("Token: <$token>");
 
   require HTML::Form;
-  my $form = HTML::Form->parse($res_main);
+  my $form = HTML::Form->parse($res_home);
   $form->value('SENDER' => $signature);
   $form->value('RECIPIENT' => $number);
   $form->value('SHORT_MESSAGE' => $body);
   $form->value('pass' => Encode::encode('UTF-8', $token));
   $this->debug_print('Sending...');
-  my $click_res = $ua->simple_request($form->click());
+  my $click_res = $ua->request($form->click());
   $click_res->is_success or $this->http_error($form->action);
   $_ = $click_res->content;
   /^Pewne pola/ and $this->api_error('s2');
-  if (m{<title>Wyst\xc4\x85pi\xc5\x82 b\xc5\x82\xc4\x85d})
+  if (m{<div class="fright message">\s+(.*)?\s+</div>})
   {
+    $_ = $1;
     my $info = 'Error while sending the message';
     /zosta\xc5\x82 wyczerpany/ and $info .= ': message limit exceeded';
     /b\xc5\x82\xc4\x99dne has\xc5\x82o/ and $info .= ': invalid passphrase';
     /nie ma aktywnej us\xc5\x82ugi/ and $info .= ': service disabled for the recipient';
     $this->quit($info);
   }
-  m{<div id="PageTitleText">SMS wys\xc5\x82any</div>} or $this->api_error('s3');
+  m{<div class="statusMessageBody txtGreen bold alignCenter">\s+Wiadomo\xC5\x9B\xC4\x87 zosta\xC5\x82a pomy\xC5\x9Blnie wys\xC5\x82ana[.]\s+</div>} or $this->api_error('s3');
   $this->debug_print('Looks OK');
-  $this->debug_print('Providing cc...');
-  $form = HTML::Form->parse($click_res);
-  $form->value('ccEmailInput' => $cc_email) if defined $cc_email;
-  $form->value('ccSmsInput' => $cc_phone) if defined $cc_phone;
-  my $cc_res = $ua->simple_request($form->click('Zapisz'));
-  $cc_res->is_success or $this->http_error($form->action);
   exit;
 }
 
