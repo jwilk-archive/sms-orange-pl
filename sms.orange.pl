@@ -54,8 +54,7 @@ sub token_get_pixel($$$)
 {
   my ($image, $x, $y) = @_;
   my ($r, $g, $b, $a) = split ',', $image->Get("pixel[$x,$y]") . "\n";
-  return $r + $g + $b if $r + $g <= 3 * $b;
-  return 0;  
+  return $r + $g + $b;
 }
 
 sub token_read_image($)
@@ -68,6 +67,10 @@ sub token_read_image($)
   my $width = $image->Get('width');
   my $height = $image->Get('height');
   $width <= 300 && $height <= 90 or return undef;
+  $image->Quantize(colorspace => 'grayscale');
+  $image->Crop(x => 1, y => 1, width => 220, height => 50);
+  $width = 200; $height = 50;
+  $image->Negate();
   my ($x, $y);
   my $state = 0;
   for ($y = $height - 1; $y >= 0; $y--)
@@ -77,9 +80,7 @@ sub token_read_image($)
     {
       $sum += token_get_pixel($image, $x, $y);
     }
-    last       if $state >= 9 && $sum  > 45000;
-    $state = 1 if $state  < 9 && $sum  > 30000;
-    $state++   if $state  > 0 && $sum <= 30000;
+    last if $sum > 8000;
   }
   $height = $y;
   $image->Crop(height => $height);
@@ -91,7 +92,7 @@ sub token_read_image($)
     {
       $sum += token_get_pixel($image, $x, $y);
     }
-    last if $sum > 30000;
+    last if $sum > 8000;
   }
   $image->Crop(y => $y);
   $height -= $y;
@@ -102,7 +103,7 @@ sub token_read_image($)
     {
       $sum += token_get_pixel($image, $x, $y);
     }
-    last if $sum > 5000;
+    last if $sum > 900;
   }
   $width = $x;
   $image->Crop(width => $width);
@@ -113,11 +114,9 @@ sub token_read_image($)
     {
       $sum += token_get_pixel($image, $x, $y);
     }
-    last if $sum > 5000;
+    last if $sum > 900;
   }
   $image->Crop(x => $x);
-  $image->Quantize(colorspace => 'grayscale');
-  $image->Negate();
   $image->MedianFilter(1);
   $image->Normalize();
   my ($twidth, $theight) = get_term_size();
