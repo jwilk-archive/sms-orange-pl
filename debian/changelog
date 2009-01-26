@@ -1,3 +1,9 @@
+sms-orange-pl (0.8.11) UNRELEASE; urgency=low
+
+  * Try to see(1) a image if it cannot be shown on the terminal.
+
+ -- Jakub Wilk <ubanus@users.sf.net>  Mon, 26 Jan 2009 12:25:43 +0100
+
 sms-orange-pl (0.8.10) unstable; urgency=low
 
   * Follow the API changes.

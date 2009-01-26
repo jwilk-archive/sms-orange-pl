@@ -227,7 +227,16 @@ sub action_send($)
   }
   else
   {
-    print "Unable to display token: '$tmp_filename'\n"
+    my $pid = open SEE, '-|', '/usr/bin/see', '--', $tmp_filename;
+    if ($pid)
+    {
+      wait;
+      close SEE;
+    }
+    else
+    {
+      print "Unable to display token: '$tmp_filename'\n"
+    }
   }
   $token = read_token();
   $this->debug_print("Token: <$token>");
