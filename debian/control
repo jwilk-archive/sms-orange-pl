@@ -8,7 +8,7 @@ Bugs: mailto:ubanus@users.sf.net
 
 Package: sms-orange-pl
 Architecture: all
-Depends: kawute (>= 0.8.1), perl (>= 5.10.0)
+Depends: ${perl:Depends}, ${misc:Depends}, kawute (>= 0.8.1), perl (>= 5.10.0)
 Recommends: libterm-size-perl, libgraphics-magick-perl
 Description: Send SMs via sms.orange.pl gateway
  sms-orange-pl allows you to send SMs via the web-to-SMS gateway at
