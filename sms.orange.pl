@@ -298,7 +298,7 @@ SMSORANGEPL_HOME (default: F<$HOME/.sms-orange-pl/>)
 
 =head1 AUTHOR
 
-Written by Jakub Wilk E<lt>ubanus@users.sf.netE<gt>.
+Written by Jakub Wilk E<lt>jwilk@jwilk.netE<gt>.
 
 =head1 COPYRIGHT
 

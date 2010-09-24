@@ -2,67 +2,67 @@ sms-orange-pl (0.8.11) unstable; urgency=low
 
   * Try to see(1) a image if it cannot be shown on the terminal.
 
- -- Jakub Wilk <ubanus@users.sf.net>  Tue, 17 Mar 2009 17:46:46 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 17 Mar 2009 17:46:46 +0100
 
 sms-orange-pl (0.8.10) unstable; urgency=low
 
   * Follow the API changes.
 
- -- Jakub Wilk <ubanus@users.sf.net>  Fri, 23 Jan 2009 21:22:29 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 23 Jan 2009 21:22:29 +0100
 
 sms-orange-pl (0.8.9) unstable; urgency=low
 
   * Use Perl ≥ 5.10.
 
- -- Jakub Wilk <ubanus@users.sf.net>  Thu, 29 May 2008 14:02:16 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 29 May 2008 14:02:16 +0200
 
 sms-orange-pl (0.8.8) unstable; urgency=low
 
   * Follow the API changes. 
 
- -- Jakub Wilk <ubanus@users.sf.net>  Thu, 15 Nov 2007 22:42:05 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 15 Nov 2007 22:42:05 +0100
 
 sms-orange-pl (0.8.7) unstable; urgency=low
 
   * Follow the API changes.
 
- -- Jakub Wilk <ubanus@users.sf.net>  Mon, 05 Nov 2007 18:43:39 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Mon, 05 Nov 2007 18:43:39 +0100
 
 sms-orange-pl (0.8.6) unstable; urgency=low
 
   * Add median filter to reduce noise.
 
- -- Jakub Wilk <ubanus@users.sf.net>  Thu, 11 Oct 2007 11:40:44 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 11 Oct 2007 11:40:44 +0200
 
 sms-orange-pl (0.8.5) unstable; urgency=low
 
   * Prevent some undefined value warnings.
 
- -- Jakub Wilk <ubanus@users.sf.net>  Wed, 25 Apr 2007 22:09:02 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 25 Apr 2007 22:09:02 +0200
 
 sms-orange-pl (0.8.4) unstable; urgency=low
 
   * Follow the web API changes.
 
- -- Jakub Wilk <ubanus@users.sf.net>  Mon,  4 Dec 2006 20:55:38 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Mon,  4 Dec 2006 20:55:38 +0100
 
 sms-orange-pl (0.8.3) unstable; urgency=low
 
   * Follow the web API changes. 
 
- -- Jakub Wilk <ubanus@users.sf.net>  Thu, 23 Nov 2006 10:38:47 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 23 Nov 2006 10:38:47 +0100
 
 sms-orange-pl (0.8.2) unstable; urgency=low
 
   * Architecture: any -> all.
 
- -- Jakub Wilk <ubanus@users.sf.net>  Wed, 15 Nov 2006 23:24:31 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 15 Nov 2006 23:24:31 +0100
 
 sms-orange-pl (0.8.1) unstable; urgency=low
 
   * Rebuilt with kawute 0.8.1.
 
- -- Jakub Wilk <ubanus@users.sf.net>  Tue, 14 Nov 2006 17:58:25 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 14 Nov 2006 17:58:25 +0100
 
 sms-orange-pl (0.8) unstable; urgency=low
 
@@ -70,28 +70,28 @@ sms-orange-pl (0.8) unstable; urgency=low
   * Less restrictive token size checking.
   * Support for multiple accounts.
 
- -- Jakub Wilk <ubanus@users.sf.net>  Mon, 30 Oct 2006 20:35:07 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Mon, 30 Oct 2006 20:35:07 +0100
 
 sms-orange-pl (0.4) unstable; urgency=low
 
   * Better token isolation. 
 
- -- Jakub Wilk <ubanus@users.sf.net>  Wed, 25 Oct 2006 11:02:30 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 25 Oct 2006 11:02:30 +0200
 
 sms-orange-pl (0.3) unstable; urgency=low
 
   * Support for non-ASCII tokens.
 
- -- Jakub Wilk <ubanus@users.sf.net>  Mon, 18 Sep 2006 13:08:42 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Mon, 18 Sep 2006 13:08:42 +0200
 
 sms-orange-pl (0.2) unstable; urgency=low
 
   * Use Text::Unidecode instead of konwert.
 
- -- Jakub Wilk <ubanus@users.sf.net>  Fri, 15 Sep 2006 08:50:30 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 15 Sep 2006 08:50:30 +0200
 
 sms-orange-pl (0.1) unstable; urgency=low
 
   * Initial release.
 
- -- Jakub Wilk <ubanus@users.sf.net>  Sat,  2 Sep 2006 15:45:47 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Sat,  2 Sep 2006 15:45:47 +0200
