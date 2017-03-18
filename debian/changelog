@@ -1,6 +1,6 @@
 sms-orange-pl (0.8.11) unstable; urgency=low
 
-  * Try to see(1) a image if it cannot be shown on the terminal.
+  * Try to see(1) an image if it cannot be shown on the terminal.
 
  -- Jakub Wilk <jwilk@jwilk.net>  Tue, 17 Mar 2009 17:46:46 +0100
 
