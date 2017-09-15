@@ -18,7 +18,7 @@ sms-orange-pl (0.8.9) unstable; urgency=low
 
 sms-orange-pl (0.8.8) unstable; urgency=low
 
-  * Follow the API changes. 
+  * Follow the API changes.
 
  -- Jakub Wilk <jwilk@jwilk.net>  Thu, 15 Nov 2007 22:42:05 +0100
 
@@ -48,7 +48,7 @@ sms-orange-pl (0.8.4) unstable; urgency=low
 
 sms-orange-pl (0.8.3) unstable; urgency=low
 
-  * Follow the web API changes. 
+  * Follow the web API changes.
 
  -- Jakub Wilk <jwilk@jwilk.net>  Thu, 23 Nov 2006 10:38:47 +0100
 
@@ -74,7 +74,7 @@ sms-orange-pl (0.8) unstable; urgency=low
 
 sms-orange-pl (0.4) unstable; urgency=low
 
-  * Better token isolation. 
+  * Better token isolation.
 
  -- Jakub Wilk <jwilk@jwilk.net>  Wed, 25 Oct 2006 11:02:30 +0200
 

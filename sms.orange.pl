@@ -194,7 +194,7 @@ sub action_send($)
   $this->debug_print("Codeset: $codeset");
 
   binmode $_, ":encoding($codeset)" foreach ((*STDIN, *STDERR, *STDOUT));
- 
+
   my ($recipient, $body) = @ARGV;
   $recipient = Encode::decode($codeset, $recipient);
   $body = Encode::decode($codeset, $body);
